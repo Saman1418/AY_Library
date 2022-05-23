@@ -14,32 +14,23 @@ app.use(bodyParser.json());
 
 
 
-
-//--- Authantication Details ----
-const LoginRoutes = require('./routes/authanticationApi/Login/login')
-const SignUpRoutes = require('./routes/authanticationApi/Register/SignUp')
-
-app.use(LoginRoutes)
-app.use(SignUpRoutes)
-
-
-//--- Docs folder Details ----
-const DocsFolderRoutes = require('./routes/Dashboard/DocFolder/Folder')
-app.use(DocsFolderRoutes)
+//--- audioBook ----
+const audioBookRoutes = require('./routes/audioBook/AudioBook')
+app.use(audioBookRoutes)
 
 
 
-//--- files Details ----
-const FilesRoutes = require('./routes/Dashboard/Files/File')
-app.use(FilesRoutes)
-
-
-
-//--- Users Details ----
-const UsersRoutes = require('./routes/Dashboard/Users/Users')
-app.use(UsersRoutes)
-
-
+// Pdf to audio 
+// let dataBuffer = fs.readFileSync("sample.pdf");
+// pdf(dataBuffer).then((data)=>{
+//     // console.log(data.text)
+//     const gTTs = require("gtts");
+//     var gtts = new gTTs(data.text,"en");
+//     gtts.save('sample.mp3', function (err, result) {
+//         if(err) { throw new Error(err) }
+//         console.log('Success!');
+//       });
+// })
 
 app.get('/', function(req, res) {
     res.send('Node API');
