@@ -65,9 +65,9 @@ router.post("/pdfToAudio", async (req, res) => {
     });
     pdf(docsData.url).then((data) => {
       // console.log("text",data.text);
-      var gtts = new gTTs(data.text, "en");
+      var gtts = new gTTs(data.text, "en",slow=true);
       // console.log("file", gtts);
-      console.log("before", new Date().toString());
+      // console.log("before", new Date().toString());
       gtts.save("sample.mp3", function (err, result) {
         if (err) {
           throw new Error(err);
