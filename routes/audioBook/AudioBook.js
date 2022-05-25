@@ -63,9 +63,9 @@ router.post("/pdfToAudio", async (req, res) => {
     collectionRef.doc(docsData.docId).update({
       audioFile: { status: "Creating..." },
     });
-    pdf(docsData.url).then((data) => {
+    pdf(docsData.url).then(async(data) => {
       // console.log("text",data.text);
-      var gtts = new gTTs(data.text, "en",slow=true);
+      var gtts = new gTTs(data.text, "en", (slow = true));
       // console.log("file", gtts);
       // console.log("before", new Date().toString());
       gtts.save("sample.mp3", function (err, result) {
@@ -92,13 +92,13 @@ router.post("/pdfToAudio", async (req, res) => {
               .getDownloadURL()
               .then((url) => {
                 collectionRef.doc(docsData.docId).update({
-                  audioFile: { status: "Created",audioUrl: url },
+                  audioFile: { status: "Created", audioUrl: url },
                 });
                 collectionRef1.add({
                   audioUrl: url,
                   audioFile: { status: "Created" },
                   name: docsData.name,
-                  parentId:docsData.docId
+                  parentId: docsData.docId,
                 });
               });
           }
@@ -108,7 +108,6 @@ router.post("/pdfToAudio", async (req, res) => {
       });
       res.status(200).send("pdfToAudio");
     });
-    
   } catch (e) {
     console.log(e);
     res.status(400).send({ message: "Error creating files" });
